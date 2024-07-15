@@ -32,8 +32,8 @@ class OrderAdapter(private val orders: ArrayList<Order>): RecyclerView.Adapter<O
         fun bind(order: Order)
         {
             binding.orderID.text = order.id.toString()
-            binding.product.text = order.products.name
-            binding.user.text = order.user.name
+            binding.product.text = order.products.toString()
+            binding.user.text = order.user.toString()
         }
     }
 }

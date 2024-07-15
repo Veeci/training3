@@ -1,12 +1,15 @@
 package com.example.mvvm_ordermanagement.model
 
+import kotlinx.coroutines.delay
 import kotlin.random.Random
 
-class OrderDataGenerator
+object OrderDataGenerator
 {
     private val currentUser = arrayListOf<User>()
     private val currentProduct = arrayListOf<Product>()
     private val currentOrder = arrayListOf<Order>()
+
+    private val standardDelay = 2000L
 
     init {
         for(i in 1..10)
@@ -18,6 +21,23 @@ class OrderDataGenerator
         for(i in 1..100)
         {
             generateOrders()
+        }
+    }
+
+    suspend fun getAllOrders() : List<Order>
+    {
+        delay(standardDelay)
+        return currentOrder
+    }
+
+    suspend fun searchOrders(query: String) : List<Order>
+    {
+        delay(standardDelay)
+        return currentOrder.filter { order ->
+            order.products.name.lowercase().contains(query.lowercase()) or
+                    order.products.brand.lowercase().contains(query.lowercase()) or
+                    order.user.name.lowercase().contains(query.lowercase()) or
+                    order.user.email.lowercase().contains(query.lowercase())
         }
     }
 
